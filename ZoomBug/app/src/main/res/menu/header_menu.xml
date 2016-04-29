@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:title="懒人模式" android:id="@+id/lazy"/>
+        <item android:title="普通模式" android:id="@+id/normal"/>
+        <item android:title="学霸模式" android:id="@+id/best"/>
+    </group>
+
+    <item android:id="@+id/group" android:title="设置">
+        <menu>
+            <item android:title="背景"/>
+        </menu>
+    </item>
+
+
+</menu>

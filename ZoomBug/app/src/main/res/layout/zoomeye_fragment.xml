@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ZoomEye"
+        android:id="@+id/textView"
+        android:textSize="66sp"
+        android:layout_gravity="center_horizontal" />
+    <EditText
+        android:maxLines="1"
+        android:hint="dork"
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+  <LinearLayout
+      android:paddingTop="20dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <Button
+          android:background="@drawable/search_button"
+          android:layout_marginLeft="10dp"
+          android:paddingLeft="20dp"
+          android:id="@+id/host_search_bt"
+          android:text="主机搜索"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content" />
+      <Button
+          android:layout_marginLeft="10dp"
+          android:background="@drawable/search_button"
+          android:layout_marginRight="10dp"
+          android:paddingRight="20dp"
+          android:id="@+id/web_search_bt"
+          android:text="Web搜索"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content" />
+  </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/info_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+</LinearLayout>
