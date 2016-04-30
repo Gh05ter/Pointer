@@ -16,11 +16,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"  />
             </intent-filter>
         </activity>
-        <activity android:name=".WorkSpace.Activity.IPInfoActivity"/>
-<activity android:name=".WorkSpace.Activity.WebViewActivity"/>
+        <activity android:name=".WorkSpace.Activity.IPInfoActivity" android:launchMode="singleTask"/>
+<activity android:name=".WorkSpace.Activity.WebViewActivity" android:launchMode="singleTask"/>
     </application>
 
 </manifest>
