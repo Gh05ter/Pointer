@@ -1,23 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:elevation="10dp"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:padding="5dp"
+            android:text="184.168.47.225"
+            android:id="@+id/ip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/url_tv"
+            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:text="odysseyworldcafe.com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:background="#66ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
     <TextView
+        android:padding="20dp"
+        android:id="@+id/info"
+        android:text="HTTP/1.1 403 Forbidden
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: text/html; charset=utf-8
+Proxy-Connection: close
+Connection: close
+Content-Length: 606"
+        android:textColor="@android:color/holo_green_dark"
+        android:maxLines="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:padding="5dp"
-        android:text="184.168.47.225"
-        android:id="@+id/ip_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/url_tv"
-        android:padding="5dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        android:text="odysseyworldcafe.com"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

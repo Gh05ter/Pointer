@@ -20,6 +20,7 @@ import com.example.mrsj.zoombug.Adapter.FragmentAdapters;
 import com.example.mrsj.zoombug.Fragment.SeebugFragment;
 import com.example.mrsj.zoombug.Fragment.ZoomEyeFragment;
 import com.example.mrsj.zoombug.R;
+import com.example.mrsj.zoombug.Utils.Util;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
+        if(!Util.isNetworkAvailable(MainActivity.this)){
+            Toast.makeText(MainActivity.this,"请检查网络连接",Toast.LENGTH_SHORT).show();
+        }
         initView();
         initData();
     }

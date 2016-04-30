@@ -18,7 +18,7 @@ public class SeebugFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.seebug_fragment,null);
+        View view=inflater.inflate(R.layout.seebug_fragment,container,false);
         RecyclerView recyclerView=(RecyclerView) view.findViewById(R.id.recycle_view);
         Seebug seebug=new Seebug(getActivity(),recyclerView);
         seebug.execute("https://www.seebug.org/vuldb/vulnerabilities?sort=hot");

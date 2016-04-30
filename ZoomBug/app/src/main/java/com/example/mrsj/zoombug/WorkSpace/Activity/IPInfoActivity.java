@@ -36,6 +36,7 @@ public class IPInfoActivity extends BaseActivity {
         ListView listView=(ListView)findViewById(R.id.list_view);
         final ArrayList<String> arrayList=this.getIntent().getStringArrayListExtra("ip");
         final ArrayList<String> urlList=this.getIntent().getStringArrayListExtra("url");
+        final ArrayList<String> infoList=this.getIntent().getStringArrayListExtra("info");
         BaseAdapter adapter=new BaseAdapter() {
             @Override
             public int getCount() {
@@ -54,11 +55,13 @@ public class IPInfoActivity extends BaseActivity {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-               View view=getLayoutInflater().from(IPInfoActivity.this).inflate(R.layout.ip_list_item,parent,false);
+               View view=getLayoutInflater().from(IPInfoActivity.this).inflate(R.layout.ip_list_item,null);
                 TextView ip=(TextView)view.findViewById(R.id.ip_tv);
                 TextView url=(TextView)view.findViewById(R.id.url_tv);
+                TextView info=(TextView)view.findViewById(R.id.info);
                 url.setText(urlList.get(position));
                 ip.setText(arrayList.get(position));
+                info.setText(infoList.get(position));
                 return view;
             }
         };

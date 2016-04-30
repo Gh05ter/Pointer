@@ -71,7 +71,7 @@ public class ZoomEye {
     }
 
     public void searchWeb(String dork,String token,int page,int port){
-        String url="http://api.zoomeye.org/web/search?query=port:"+port+"&page="+page+"&facet="+dork+"/";
+        String url="http://api.zoomeye.org/web/search?query=port:"+port+" "+dork+"&page="+page+"&facet=";
         ZEWebSearch zeWebSearch=new ZEWebSearch(context,handler,url,token);
         zeWebSearch.postWebRequest();
         }
@@ -93,7 +93,7 @@ public class ZoomEye {
     }
 
     public void searchHost(String dork,String token,int page,int port){
-            String url="http://api.zoomeye.org/host/search?query=\"port:"+port+"&page="+page+"&facet="+dork;
+            String url="http://api.zoomeye.org/host/search?query=\"port:"+port+" "+dork+"&page="+page+"&facet=";
             ZEHostSearch zeHostSearch=new ZEHostSearch(context,handler,url,token);
             zeHostSearch.postHostRequest();
     }

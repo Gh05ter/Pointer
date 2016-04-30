@@ -2,34 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
+    android:padding="10dp"
     android:orientation="vertical"
     android:clickable="true"
+    android:elevation="10dp"
    >
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
-            android:textColor="@color/colorPrimary"
-            android:padding="5dp"
-            android:id="@+id/bug_key_tv"
-            android:text="漏洞编号：SSV-91380"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    <TextView
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-            android:paddingLeft="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
             android:id="@+id/bug_info_tv"
             android:layout_marginTop="5dp"
             android:text="XYCMS企业建站系统 news_detail.asp, pro_detail.asp等五处SQL注入"
             android:maxLines="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    <View
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
-
-
+        <TextView
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/bug_key_tv"
+            android:text="漏洞编号：SSV-91380"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+    </LinearLayout>
 
 </LinearLayout>

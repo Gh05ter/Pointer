@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mrsj.zoombug.R;
-import com.example.mrsj.zoombug.Utils.LogToast;
+import com.example.mrsj.zoombug.Utils.Util;
 import com.example.zoomeye.ZoomEye.User;
 import com.example.zoomeye.ZoomEye.ZoomEye;
 
@@ -37,6 +37,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         sharedPreferences = this.getSharedPreferences("config", MODE_PRIVATE);
+
         initView();
         initData();
     }
@@ -68,7 +69,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor.putBoolean("auto_login", isChecked);
-                LogToast.logInfo("check", isChecked + "==++++++");
+                Util.logInfo("check", isChecked + "==++++++");
                 editor.commit();
                 buttonView.setChecked(isChecked);
             }
@@ -78,10 +79,10 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        /*if (autoLogin.isChecked() && (System.currentTimeMillis() - sharedPreferences.getLong("time", 0)) > (12 * 3600*1000)) {
+        if (autoLogin.isChecked() && (System.currentTimeMillis() - sharedPreferences.getLong("time", 0)) > (12 * 3600*1000)) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-        }*/
+        }
         setListening();
     }
 
@@ -105,8 +106,13 @@ public class LoginActivity extends BaseActivity {
                 String userName = user_et.getText().toString().trim();
                 String pwValue = passWord_et.getText().toString().trim();
                 user = new User(userName, pwValue);
-                ZoomEye zoomEye = new ZoomEye(LoginActivity.this, handler, user);
-                zoomEye.login();
+                if(Util.isNetworkAvailable(LoginActivity.this)){
+                    ZoomEye zoomEye = new ZoomEye(LoginActivity.this, handler, user);
+                    zoomEye.login();
+                }else{
+                    Toast.makeText(LoginActivity.this,"请检查网络连接",Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -134,6 +140,8 @@ public class LoginActivity extends BaseActivity {
             return true;
         }
     });
+
+
 
 }
 

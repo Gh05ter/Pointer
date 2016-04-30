@@ -36,6 +36,7 @@ public class ZoomEyeFragment extends Fragment {
     ProgressDialog bar;
     private ArrayList<String> ipList;
     private ArrayList<String> urlList;
+    private ArrayList<String> infoList;
     private boolean flag=false;
      ZoomEye zoomEye;
     private Handler handler=new Handler(new Handler.Callback() {
@@ -57,6 +58,7 @@ public class ZoomEyeFragment extends Fragment {
                             Log.e("ip",jsonObject.getString("ip")+jsonObject.getString("site"));
                             ipList.add(jsonObject.getString("ip"));
                             urlList.add(jsonObject.getString("site"));
+                            infoList.add(jsonObject.getString("headers"));
                         }
                     }catch (Exception e){
 
@@ -75,6 +77,9 @@ public class ZoomEyeFragment extends Fragment {
                             Log.e("ip",jsonObject.getString("ip"));
                             ipList.add(jsonObject.getString("ip"));
                             urlList.add(jsonObject.getString("timestamp")+"");
+                            JSONObject json=jsonObject.getJSONObject("portinfo");
+
+                            infoList.add(json.getString("banner"));
                         }
                     }catch (Exception e){
 
@@ -94,6 +99,7 @@ public class ZoomEyeFragment extends Fragment {
                 Intent intent=new Intent(getActivity(), IPInfoActivity.class);
                 intent.putStringArrayListExtra("ip",ipList);
                 intent.putStringArrayListExtra("url",urlList);
+                intent.putStringArrayListExtra("info",infoList);
                 startActivity(intent);
                 getActivity().finish();
                ZoomEye.requestQueue.stop();
@@ -112,6 +118,7 @@ public class ZoomEyeFragment extends Fragment {
         final EditText searchView=(EditText) view.findViewById(R.id.search_view);
         ipList=new ArrayList<>();
         urlList=new ArrayList<>();
+        infoList=new ArrayList<>();
         bar=new ProgressDialog(getActivity());
         Button webSearch=(Button)view.findViewById(R.id.web_search_bt);
         Button hostSearch=(Button)view.findViewById(R.id.host_search_bt);
@@ -132,7 +139,7 @@ public class ZoomEyeFragment extends Fragment {
                     bar.setCancelable(false);
                     bar.show();
                     zoomEye=new ZoomEye(getActivity(),handler,user);
-                    zoomEye.searchWeb(dork,sharedPreferences.getString("token",""),10,32);
+                    zoomEye.searchWeb(dork,sharedPreferences.getString("token",""));
 
                 }else{
                     Toast.makeText(getActivity(),"输入为空",Toast.LENGTH_SHORT).show();
@@ -154,7 +161,7 @@ public class ZoomEyeFragment extends Fragment {
                     bar.setCancelable(false);
                     bar.show();
                     zoomEye=new ZoomEye(getActivity(),handler,user);
-                    zoomEye.searchHost(dork,sharedPreferences.getString("token",""),1,21);
+                    zoomEye.searchHost(dork,sharedPreferences.getString("token",""));
                 }else{
                     Toast.makeText(getActivity(),"输入为空",Toast.LENGTH_SHORT).show();
                 }

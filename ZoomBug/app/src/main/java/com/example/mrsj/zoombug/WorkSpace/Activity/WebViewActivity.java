@@ -1,5 +1,7 @@
 package com.example.mrsj.zoombug.WorkSpace.Activity;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -28,7 +30,7 @@ public class WebViewActivity extends BaseActivity {
     public void initView() {
          webView=(WebView)findViewById(R.id.web_view);
         String url=this.getIntent().getStringExtra("url");
-
+        final ProgressDialog bar=new ProgressDialog(WebViewActivity.this);
         WebSettings settings=webView.getSettings();
         settings.setUseWideViewPort(true);
        settings.setLoadWithOverviewMode(true);
@@ -40,7 +42,24 @@ public class WebViewActivity extends BaseActivity {
                 view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                bar.setMessage("正在加载。。。。");
+                bar.setIndeterminate(false);
+                bar.setCancelable(true);
+                bar.show();
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                bar.dismiss();
+                super.onPageFinished(view, url);
+            }
         });
+
+
 
 
 
