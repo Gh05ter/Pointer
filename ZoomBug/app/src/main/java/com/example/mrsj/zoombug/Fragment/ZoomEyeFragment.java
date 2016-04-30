@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrsj.zoombug.R;
@@ -91,8 +90,6 @@ public class ZoomEyeFragment extends Fragment {
                     break;
             }
 
-            TextView textView=(TextView)view.findViewById(R.id.info_tv);
-            textView.setText(result);
             bar.dismiss();
 
             if(flag){
@@ -101,7 +98,6 @@ public class ZoomEyeFragment extends Fragment {
                 intent.putStringArrayListExtra("url",urlList);
                 intent.putStringArrayListExtra("info",infoList);
                 startActivity(intent);
-                getActivity().finish();
                ZoomEye.requestQueue.stop();
                 flag=false;
             }

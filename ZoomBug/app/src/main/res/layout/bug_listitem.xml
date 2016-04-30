@@ -8,7 +8,7 @@
     android:elevation="10dp"
    >
     <LinearLayout
-        android:background="@color/colorPrimary"
+        android:background="#99ffffff"
         android:padding="5dp"
         android:orientation="vertical"
         android:layout_width="match_parent"

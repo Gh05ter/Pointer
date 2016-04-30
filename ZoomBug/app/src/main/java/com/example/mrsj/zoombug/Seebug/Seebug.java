@@ -79,6 +79,7 @@ public class Seebug extends AsyncTask<String, String, String>
 
         @Override
         protected void onPostExecute(String result) {
+
             ArrayList<RecycleItem> infoList=new ArrayList<>();
             for(int i=0;i<urls.size();i++){
                 infoList.add(new RecycleItem(urls.get(i),text.get(i)));
@@ -104,16 +105,22 @@ public class Seebug extends AsyncTask<String, String, String>
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
-            super.onPreExecute();
-
             bar = new ProgressDialog(activity);
             bar.setMessage("正在加载数据····");
             bar.setIndeterminate(false);
-            bar.setCancelable(false);
+            bar.setCancelable(true);
             bar.show();
+            super.onPreExecute();
+
+
+
         }
 
+    @Override
+    protected void onProgressUpdate(String... values) {
 
+        super.onProgressUpdate(values);
 
     }
+}
 

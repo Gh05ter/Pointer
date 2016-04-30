@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main);
        sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
         if(!Util.isNetworkAvailable(MainActivity.this)){
@@ -55,10 +57,10 @@ public class MainActivity extends BaseActivity {
 
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
         final ViewPager viewPager=(ViewPager)findViewById(R.id.view_pager);
-        String[] titles={"Seebug","ZoomEye"};
+        String[] titles={"ZoomEye","Seebug"};
         ArrayList<Fragment> list=new ArrayList<>();
-        list.add(new SeebugFragment());
         list.add(new ZoomEyeFragment());
+        list.add(new SeebugFragment());
         viewPager.setAdapter(new FragmentAdapters(getSupportFragmentManager(),list,titles));
         viewPager.setCurrentItem(0);
 
@@ -109,4 +111,9 @@ public class MainActivity extends BaseActivity {
             return false;
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }

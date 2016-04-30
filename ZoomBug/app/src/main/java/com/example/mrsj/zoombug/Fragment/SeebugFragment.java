@@ -24,4 +24,5 @@ public class SeebugFragment extends Fragment {
         seebug.execute("https://www.seebug.org/vuldb/vulnerabilities?sort=hot");
         return view;
     }
+
 }

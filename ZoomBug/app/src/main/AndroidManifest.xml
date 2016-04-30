@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WorkSpace.Activity.MainActivity">
+        <activity android:name=".WorkSpace.Activity.MainActivity" android:launchMode="standard">
 
         </activity>
         <activity android:name=".WorkSpace.Activity.LoginActivity" >

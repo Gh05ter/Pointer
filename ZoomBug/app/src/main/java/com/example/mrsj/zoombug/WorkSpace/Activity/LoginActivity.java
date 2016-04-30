@@ -20,6 +20,8 @@ import com.example.mrsj.zoombug.Utils.Util;
 import com.example.zoomeye.ZoomEye.User;
 import com.example.zoomeye.ZoomEye.ZoomEye;
 
+import java.util.Calendar;
+
 /**
  * Created by MR.SJ on 2016/4/21.
  */
@@ -79,7 +81,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        if (autoLogin.isChecked() && (System.currentTimeMillis() - sharedPreferences.getLong("time", 0)) > (12 * 3600*1000)) {
+        if (autoLogin.isChecked() && ( getTime()- sharedPreferences.getLong("time", 0)) <12) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -130,7 +132,8 @@ public class LoginActivity extends BaseActivity {
                 editor.putString("token", msg.getData().get("access_token").toString());
                 editor.putString("username", user.getUsername());
                 editor.putString("password", user.getPassword());
-                editor.putLong("time", System.currentTimeMillis());
+
+                editor.putLong("time", getTime());
                 editor.commit();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
@@ -140,6 +143,18 @@ public class LoginActivity extends BaseActivity {
             return true;
         }
     });
+
+
+    public  Long getTime(){
+        Calendar calendar=Calendar.getInstance();
+        StringBuffer buffer=new StringBuffer();
+        String hout=calendar.get(Calendar.HOUR_OF_DAY)+"";
+        String day=calendar.get(Calendar.DAY_OF_MONTH)+"";
+        buffer.append(day);
+        buffer.append(hout);
+
+        return Long.valueOf(buffer.toString());
+    }
 
 
 
