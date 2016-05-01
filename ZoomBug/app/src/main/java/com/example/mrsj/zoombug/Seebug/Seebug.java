@@ -1,10 +1,9 @@
 package com.example.mrsj.zoombug.Seebug;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -30,15 +29,21 @@ import java.util.ArrayList;
 public class Seebug extends AsyncTask<String, String, String>
 {
         private Activity activity;
-        public Seebug(Activity activity,RecyclerView recyclerView){
+        private Fragment context;
+        public Seebug(Fragment context, Activity activity, RecyclerView recyclerView){
             this.recyclerView=recyclerView;
             this.activity=activity;
+            this.context=context;
         }
-    ArrayList<String> urls=new ArrayList<>();
-    ArrayList<String> text=new ArrayList<>();
-        ProgressDialog bar;
-        Document doc;
+        ArrayList<String> urls=new ArrayList<>();
+        ArrayList<String> text=new ArrayList<>();
         private RecyclerView recyclerView;
+
+    /**
+     * 对获取的数据进行解析
+     * @param params
+     * @return
+     */
         @Override
         protected String doInBackground(String... params) {
             StringBuilder builder=new StringBuilder();
@@ -84,8 +89,7 @@ public class Seebug extends AsyncTask<String, String, String>
             for(int i=0;i<urls.size();i++){
                 infoList.add(new RecycleItem(urls.get(i),text.get(i)));
             }
-            LinearLayoutManager manager=new LinearLayoutManager(activity);
-            recyclerView.setLayoutManager(manager);
+
             final SgRecycleAdapter adapter=new SgRecycleAdapter(activity,infoList);
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(adapter);
@@ -99,28 +103,17 @@ public class Seebug extends AsyncTask<String, String, String>
                 }
             });
             super.onPostExecute(result);
-            bar.dismiss();
         }
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            bar = new ProgressDialog(activity);
-            bar.setMessage("正在加载数据····");
-            bar.setIndeterminate(false);
-            bar.setCancelable(true);
-            bar.show();
             super.onPreExecute();
-
-
 
         }
 
     @Override
     protected void onProgressUpdate(String... values) {
-
         super.onProgressUpdate(values);
-
     }
 }
 

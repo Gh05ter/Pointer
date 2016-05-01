@@ -59,6 +59,7 @@ public class IPInfoActivity extends BaseActivity {
                 TextView ip=(TextView)view.findViewById(R.id.ip_tv);
                 TextView url=(TextView)view.findViewById(R.id.url_tv);
                 TextView info=(TextView)view.findViewById(R.id.info);
+
                 url.setText(urlList.get(position));
                 ip.setText(arrayList.get(position));
                 info.setText(infoList.get(position));
@@ -90,6 +91,6 @@ public class IPInfoActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-       startActivity(new Intent(IPInfoActivity.this,MainActivity.class));
+        super.onBackPressed();
     }
 }

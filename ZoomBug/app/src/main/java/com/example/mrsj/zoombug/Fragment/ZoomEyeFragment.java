@@ -2,6 +2,7 @@ package com.example.mrsj.zoombug.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -54,7 +55,6 @@ public class ZoomEyeFragment extends Fragment {
                             if(jsonObject.toString().isEmpty()){
                                 flag=true;
                             }
-                            Log.e("ip",jsonObject.getString("ip")+jsonObject.getString("site"));
                             ipList.add(jsonObject.getString("ip"));
                             urlList.add(jsonObject.getString("site"));
                             infoList.add(jsonObject.getString("headers"));
@@ -64,7 +64,7 @@ public class ZoomEyeFragment extends Fragment {
                     }
                     break;
                 case 4:
-                    Toast.makeText(getActivity(),"出现错误",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"出现错误"+msg.arg1,Toast.LENGTH_LONG).show();
                     break;
                 case 5:
                     flag=true;
@@ -86,7 +86,7 @@ public class ZoomEyeFragment extends Fragment {
 
                     break;
                 case 6:
-                    Toast.makeText(getActivity(),"出现错误",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"出现错误"+msg.arg1,Toast.LENGTH_LONG).show();
                     break;
             }
 
@@ -116,6 +116,12 @@ public class ZoomEyeFragment extends Fragment {
         urlList=new ArrayList<>();
         infoList=new ArrayList<>();
         bar=new ProgressDialog(getActivity());
+        bar.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+               
+            }
+        });
         Button webSearch=(Button)view.findViewById(R.id.web_search_bt);
         Button hostSearch=(Button)view.findViewById(R.id.host_search_bt);
         final SharedPreferences sharedPreferences=getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -132,7 +138,7 @@ public class ZoomEyeFragment extends Fragment {
                     bar = new ProgressDialog(getActivity());
                     bar.setMessage("正在加载");
                     bar.setIndeterminate(false);
-                    bar.setCancelable(false);
+                    bar.setCancelable(true);
                     bar.show();
                     zoomEye=new ZoomEye(getActivity(),handler,user);
                     zoomEye.searchWeb(dork,sharedPreferences.getString("token",""));
@@ -163,8 +169,6 @@ public class ZoomEyeFragment extends Fragment {
                 }
             }
         });
-
-
         return view;
     }
 }

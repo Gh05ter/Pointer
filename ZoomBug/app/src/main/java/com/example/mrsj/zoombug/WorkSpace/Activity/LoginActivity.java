@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -81,7 +82,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        if (autoLogin.isChecked() && ( getTime()- sharedPreferences.getLong("time", 0)) <12) {
+        if (autoLogin.isChecked() && ( getTime()- sharedPreferences.getInt("time", 0)) <12) {
+            Log.e("time",(getTime()+"     "+sharedPreferences.getInt("time", 0))+"");
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -103,15 +105,17 @@ public class LoginActivity extends BaseActivity {
                 bar = new ProgressDialog(LoginActivity.this);
                 bar.setMessage("正在登录");
                 bar.setIndeterminate(false);
-                bar.setCancelable(false);
+                bar.setCancelable(true);
                 bar.show();
                 String userName = user_et.getText().toString().trim();
                 String pwValue = passWord_et.getText().toString().trim();
                 user = new User(userName, pwValue);
-                if(Util.isNetworkAvailable(LoginActivity.this)){
+                if(Util.is3rd(getApplicationContext())||Util.isWifiEnabled(getApplicationContext())){
                     ZoomEye zoomEye = new ZoomEye(LoginActivity.this, handler, user);
                     zoomEye.login();
+
                 }else{
+                    bar.dismiss();
                     Toast.makeText(LoginActivity.this,"请检查网络连接",Toast.LENGTH_SHORT).show();
                 }
 
@@ -120,43 +124,66 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+    }
+
     /**
      *  handler用于出口网络请求数据
      */
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            bar.dismiss();
+
             if (msg.what == 1) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("token", msg.getData().get("access_token").toString());
                 editor.putString("username", user.getUsername());
                 editor.putString("password", user.getPassword());
 
-                editor.putLong("time", getTime());
+                editor.putInt("time", getTime());
                 editor.commit();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "你的密码或账户有误", Toast.LENGTH_LONG).show();
+                bar.dismiss();
+                if(Util.isNetworkAvailable(LoginActivity.this)){
+                    Toast.makeText(LoginActivity.this, "你的密码或账户有误", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(LoginActivity.this, "网络错误", Toast.LENGTH_LONG).show();
+                }
+
             }
             return true;
         }
     });
 
 
-    public  Long getTime(){
+    public int getTime(){
         Calendar calendar=Calendar.getInstance();
         StringBuffer buffer=new StringBuffer();
-        String hout=calendar.get(Calendar.HOUR_OF_DAY)+"";
+        String hour=calendar.get(Calendar.HOUR_OF_DAY)+"";
         String day=calendar.get(Calendar.DAY_OF_MONTH)+"";
         buffer.append(day);
-        buffer.append(hout);
+        Log.e("day",day+"");
+        buffer.append(hour);
+        Log.e("hour",hour+"");
 
-        return Long.valueOf(buffer.toString());
+        return Integer.valueOf(buffer.toString()).intValue();
     }
 
+    @Override
+    public void onBackPressed() {
 
-
+        super.onBackPressed();
+    }
 }
 

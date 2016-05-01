@@ -69,7 +69,12 @@ public class ZEWebSearch {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            handler.sendEmptyMessage(4);
+                            Message message=new Message();
+
+                            message.what=4;
+                            message.arg1=error.networkResponse.statusCode;
+                            handler.sendMessage(message);
+
                         }
                     }){
                         @Override
@@ -79,6 +84,14 @@ public class ZEWebSearch {
                             return map;
                         }
 
+                        @Override
+                        protected VolleyError parseNetworkError(VolleyError volleyError) {
+                            if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                                VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
+                                volleyError = error;
+                            }
+                            return volleyError;
+                        }
                     };
 
                     requestQueue.add(jsonObjectRequest);
@@ -88,5 +101,5 @@ public class ZEWebSearch {
         }
 
 
-        }
+}
 

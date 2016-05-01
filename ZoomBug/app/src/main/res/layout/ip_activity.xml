@@ -4,6 +4,7 @@
     android:background="@android:color/black"
     android:layout_height="match_parent">
     <include layout="@layout/header_layout"/>
+
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

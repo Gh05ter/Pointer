@@ -70,7 +70,11 @@ public class ZEHostSearch {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        handler.sendEmptyMessage(6);
+                        Message message=new Message();
+
+                        message.what=6;
+                        message.arg1=error.networkResponse.statusCode;
+                        handler.sendMessage(message);
                     }
                 }){
                     @Override
@@ -78,6 +82,14 @@ public class ZEHostSearch {
                         Map<String,String> map=new HashMap<String, String>();
                         map.put("Authorization",auth);
                         return map;
+                    }
+                    @Override
+                    protected VolleyError parseNetworkError(VolleyError volleyError) {
+                        if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                            VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
+                            volleyError = error;
+                        }
+                        return volleyError;
                     }
 
                 };

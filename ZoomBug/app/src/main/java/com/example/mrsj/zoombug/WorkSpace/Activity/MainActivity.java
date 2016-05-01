@@ -1,6 +1,5 @@
 package com.example.mrsj.zoombug.WorkSpace.Activity;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,10 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +30,7 @@ public class MainActivity extends BaseActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main);
        sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
-        if(!Util.isNetworkAvailable(MainActivity.this)){
+        if(!Util.isNetworkAvailable(this.getApplicationContext())){
             Toast.makeText(MainActivity.this,"请检查网络连接",Toast.LENGTH_SHORT).show();
         }
         initView();
@@ -94,23 +90,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+
+        this.finish();
     }
 
-    private View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if(keyCode == KeyEvent.KEYCODE_ENTER){
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(inputMethodManager.isActive()){
-                    inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-                }
-                return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onStop() {
